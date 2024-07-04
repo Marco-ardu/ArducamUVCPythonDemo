@@ -87,6 +87,7 @@ if __name__ == "__main__":
             cap.set_width(9248)
             cap.set_height(6944)
             cap.reStart()
+            cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0)
 
             for i in range(wait_frames):
                 print(f"wait {i + 1}")
@@ -102,6 +103,7 @@ if __name__ == "__main__":
             cap.set_height(height)
             cap.set_fps(fps)
             cap.reStart()
+            cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1)
 
     cap.release()
 
