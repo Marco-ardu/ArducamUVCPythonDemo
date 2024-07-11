@@ -11,10 +11,10 @@ display_fps.frame_count = 0
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('-W', '--width', type=int, required=False, default=0, help='set camera image width')
-    parser.add_argument('-H', '--height', type=int, required=False, default=0, help='set camera image height')
+    parser.add_argument('-W', '--width', type=int, required=False, default=1280, help='set camera image width')
+    parser.add_argument('-H', '--height', type=int, required=False, default=720, help='set camera image height')
     parser.add_argument('-d', '--DisplayWindow', type=validate_windows_size, required=False, default="1920:1080", help='Set the display window size, <width>:<height>')
-    parser.add_argument('-f', '--FrameRate', type=int, required=False, default=0, help='set camera frame rate')
+    parser.add_argument('-f', '--FrameRate', type=int, required=False, default=30, help='set camera frame rate')
     parser.add_argument('-F', '--Focus', action='store_true', required=False, help='Add focus control on the display interface')
     parser.add_argument('-i', '--index', type=int, required=False, default=0, help='set camera index')
     parser.add_argument('-v', '--VideoCaptureAPI', type=int, required=False, default=0, choices=range(0, len(selector_list)), help=VideoCaptureAPIs)
@@ -87,7 +87,7 @@ if __name__ == "__main__":
             cap.set_width(9248)
             cap.set_height(6944)
             cap.reStart()
-            cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1)
+            cap.set_auto_exposure(False)
             for i in range(wait_frames):
                 print(f"wait {i + 1}")
                 ret, frame = cap.read()
@@ -103,7 +103,7 @@ if __name__ == "__main__":
             cap.set_height(height)
             cap.set_fps(fps)
             cap.reStart()
-            cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0)
+            cap.set_auto_exposure(True)
 
     cap.release()
 

@@ -1,5 +1,6 @@
 import time
 import cv2
+import sys
 
 class Camera:
 
@@ -35,6 +36,12 @@ class Camera:
 
     def set(self, selector, val):
         self.cap.set(selector, val)
+
+    def set_auto_exposure(self, mode):
+        if sys.platform == "win32":
+            self.cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1 if mode else 0)
+        else:
+            self.cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0 if mode else 1)
 
     def read(self):
         return self.cap.read()
