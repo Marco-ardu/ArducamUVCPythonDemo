@@ -13,7 +13,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-W', '--width', type=int, required=False, default=0, help='set camera image width')
     parser.add_argument('-H', '--height', type=int, required=False, default=0, help='set camera image height')
-    parser.add_argument('-d', '--DisplayWindow', type=validate_windows_size, required=False, default="800:600", help='Set the display window size, <width>:<height>')
+    parser.add_argument('-d', '--DisplayWindow', type=validate_windows_size, required=False, default="1920:1080", help='Set the display window size, <width>:<height>')
     parser.add_argument('-f', '--FrameRate', type=int, required=False, default=0, help='set camera frame rate')
     parser.add_argument('-F', '--Focus', action='store_true', required=False, help='Add focus control on the display interface')
     parser.add_argument('-i', '--index', type=int, required=False, default=0, help='set camera index')
@@ -73,13 +73,13 @@ if __name__ == "__main__":
 
         display_fps(frame)
         cv2.imshow("video", frame)
-        
-        time_str = time.strftime('%Y-%m-%d') + time.strftime('_%H_%M_%S')
+
         key = cv2.waitKey(1)                                            
         if key == ord("q"):
             break
         elif key == ord("s"):
             if not output_path:
+                time_str = time.strftime('%Y-%m-%d') + time.strftime('_%H_%M_%S')
                 output_path = f"{width}x{height}_{time_str}.jpg"
             cv2.imwrite(f"{output_path}", frame)
             print(f"save success, file name: {output_path}")
@@ -87,12 +87,12 @@ if __name__ == "__main__":
             cap.set_width(9248)
             cap.set_height(6944)
             cap.reStart()
-            cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0)
-
+            cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1)
             for i in range(wait_frames):
                 print(f"wait {i + 1}")
                 ret, frame = cap.read()
             if ret:
+                time_str = time.strftime('%Y-%m-%d') + time.strftime('_%H_%M_%S')
                 file_name = f"64MP_{time_str}.jpg"
                 cv2.imwrite(file_name, frame)
                 print(f"save success, file name: {file_name}")
@@ -103,7 +103,7 @@ if __name__ == "__main__":
             cap.set_height(height)
             cap.set_fps(fps)
             cap.reStart()
-            cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1)
+            cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0)
 
     cap.release()
 
