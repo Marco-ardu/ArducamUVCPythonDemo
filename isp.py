@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-def arducam108mp_isp(frame, ccm, ccm_list):
+def arducam200mp_isp(frame, ccm, ccm_list):
 	frame = np.where(frame < 16, 0, frame - 16)
 	frame = cv2.cvtColor(frame, cv2.COLOR_BayerGR2RGB)
 	if ccm:

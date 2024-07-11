@@ -3,7 +3,7 @@ import argparse
 
 import numpy as np
 from camera import Camera
-from isp import arducam108mp_isp
+from isp import arducam200mp_isp
 from utils import *
 import json
 from rich import print
@@ -57,8 +57,8 @@ if __name__ == "__main__":
     if focus:
         cv2.createTrackbar('Focus', 'video', 187, 1023, cap.set_focus)
 
-    if width == 6000 and height == 9000:
-        cap.set(cv2.CAP_PROP_CONVERT_RGB, 0)
+    # if width == 8160 and height == 12288:
+    #     cap.set(cv2.CAP_PROP_CONVERT_RGB, 0)
 
     ccm_list = []
     if tuning_file_path:
@@ -85,8 +85,8 @@ if __name__ == "__main__":
                 else:
                     print("reopen failed")
         
-        if width == 6000 and height == 9000:
-            frame = arducam108mp_isp(frame.reshape(9000, 12000), ccm, ccm_list)
+        # if width == 8160 and height == 12288:
+        #     frame = arducam200mp_isp(frame.reshape(12288, 16320), ccm, ccm_list)
 
         display_fps(frame)
         cv2.imshow("video", frame)
@@ -101,8 +101,8 @@ if __name__ == "__main__":
             cv2.imwrite(f"{output_path}", frame)
             print(f"save success, file name: {output_path}")
         elif key == ord("a"):
-            cap.set_width(6000)
-            cap.set_height(9000)
+            cap.set_width(16320)
+            cap.set_height(6144)
             cap.reStart()
             cap.set(cv2.CAP_PROP_CONVERT_RGB, 0)
 
@@ -110,8 +110,8 @@ if __name__ == "__main__":
                 print(f"wait {i + 1}")
                 ret, frame = cap.read()
             if ret:
-                frame = arducam108mp_isp(frame.reshape(9000, 12000), ccm, ccm_list)
-                file_name = f"108MP_{time_str}.jpg"
+                frame = arducam200mp_isp(frame.reshape(12288, 16320), ccm, ccm_list)
+                file_name = f"200MP_{time_str}.jpg"
                 cv2.imwrite(file_name, frame)
                 print(f"save success, file name: {file_name}")
             else:
