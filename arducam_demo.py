@@ -101,7 +101,7 @@ if __name__ == "__main__":
                 ret, frame = cap.read()
             if ret:
                 time_str = time.strftime('%Y-%m-%d') + time.strftime('_%H_%M_%S')
-                file_name = f"200MP_{time_str}.jpg"
+                file_name = f"200MP_{time_str}.RAW"
                 np.array(frame).tofile(file_name)
                 print(f"save success, file name: {file_name}")
             else:
